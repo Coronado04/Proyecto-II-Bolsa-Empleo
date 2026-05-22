@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import ArbolCaracteristicas from '../components/ArbolCaracteristicas';
-import PuestoCard from '../components/PuestoCard';
-import { buscarPuestos, getCaracteristicas } from '../services/publicoService';
+import ArbolCaracteristicas from '../../components/ArbolCaracteristicas.jsx';
+import PuestoCard from '../../components/PuestoCard.jsx';
+import { buscarPuestos, getCaracteristicas } from './publicoService.jsx';
 
 export default function BuscarPuestos() {
   const [arbol, setArbol] = useState([]);

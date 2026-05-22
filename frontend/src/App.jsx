@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import BuscarPuestos from './pages/BuscarPuestos';
+import Home from './pages/BuscaPuesto/Home.jsx';
+import BuscarPuestos from './pages/BuscaPuesto/BuscarPuestos.jsx';
 import './App.css';
 
 export default function App() {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import PuestoCard from '../components/PuestoCard';
-import { getPuestosRecientes } from '../services/publicoService';
+import PuestoCard from '../../components/PuestoCard.jsx';
+import { getPuestosRecientes } from './publicoService.jsx';
 
 export default function Home() {
   const [puestos, setPuestos] = useState([]);
