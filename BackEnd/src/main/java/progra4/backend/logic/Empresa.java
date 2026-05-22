@@ -1,11 +1,8 @@
 package progra4.backend.logic;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-@JsonIgnoreProperties({
-        "usuario"
-})
+
 @Entity
 public class Empresa {
     @Id

@@ -1,16 +1,12 @@
 package progra4.backend.logic;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 import java.util.List;
-@JsonIgnoreProperties({
-        "hibernateLazyInitializer",
-        "handler"
-})
+
 @Entity
 public class Puesto {
     @Id

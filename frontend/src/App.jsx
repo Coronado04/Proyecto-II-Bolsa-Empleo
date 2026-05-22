@@ -1,30 +1,32 @@
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router";
-import { Header, Footer } from "./Fragments";
-import Publico from "./publico/Publico";
+import { useState } from 'react';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import BuscarPuestos from './pages/BuscarPuestos';
+import './App.css';
 
-function App() {
+export default function App() {
+  const [pagina, setPagina] = useState('home');
 
-    return (
+  function renderPagina() {
+    switch (pagina) {
+      case 'home':   return <Home />;
+      case 'buscar': return <BuscarPuestos />;
+      default:
+        return (
+          <main style={{ padding: '48px', textAlign: 'center', color: '#9ca3af' }}>
+            <h2>Sección en construcción</h2>
+            <p>Esta funcionalidad se implementará en próximos avances.</p>
+          </main>
+        );
+    }
+  }
 
-        <BrowserRouter>
-
-            <Header />
-
-            <main>
-
-                <Routes>
-
-                    <Route path="/" element={<Publico />} />
-
-                </Routes>
-
-            </main>
-
-            <Footer />
-
-        </BrowserRouter>
-    );
+  return (
+    <div className="app-shell">
+      <Navbar pagina={pagina} onNavegar={setPagina} />
+      {renderPagina()}
+      <Footer />
+    </div>
+  );
 }
-
-export default App;

@@ -1,10 +1,7 @@
 package progra4.backend.logic;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-@JsonIgnoreProperties({
-        "puesto"
-})
+
 @Entity
 @Table(name = "puestocaracteristica")
 @IdClass(PuestoCaracteristicaId.class)
