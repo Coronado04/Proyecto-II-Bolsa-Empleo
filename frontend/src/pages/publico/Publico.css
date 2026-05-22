@@ -1,0 +1,67 @@
+.puestosGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.puestoCard {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 16px;
+    width: 260px;
+    position: relative;
+}
+
+.puestoCard strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.puestoCard p {
+    font-size: 13px;
+    color: #555;
+    margin: 4px 0;
+}
+
+.tooltipWrap {
+    position: relative;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.tooltipContent {
+    display: none;
+    position: absolute;
+    bottom: 110%;
+    left: 0;
+    background: #333;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 5px;
+    width: 240px;
+    font-size: 12px;
+    z-index: 10;
+}
+
+.tooltipContent ul {
+    margin: 6px 0 0 16px;
+}
+
+.tooltipWrap:hover .tooltipContent {
+    display: block;
+}
+
+.btnSm {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #1a6bbf;
+    color: white;
+    border-radius: 3px;
+    font-size: 12px;
+    margin: 2px;
+    border: none;
+    cursor: pointer;
+}
