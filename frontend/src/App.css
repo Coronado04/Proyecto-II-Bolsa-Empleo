@@ -1,3 +1,360 @@
-/* App shell sin estilos propios — todo viene de index.css igual que el proyecto viejo */
-.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
-.app-shell > main { flex: 1; }
+/* ════════════════════════════════════════════════════════════════ */
+/* GENERAL */
+/* ════════════════════════════════════════════════════════════════ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ════════════════════════════════════════════════════════════════ */
+/* HEADER / NAVBAR */
+/* ════════════════════════════════════════════════════════════════ */
+.header {
+    background-color: #2c3e50;
+    padding: 1em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-decoration: none;
+}
+
+.header-logo img {
+    height: 40px;
+}
+
+.header-nav {
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.header-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.header-nav a:hover {
+    color: #3498db;
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    color: white;
+    font-size: 0.95em;
+}
+
+.logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+.login-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.6em 1.2em;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #2980b9;
+}
+
+/* ════════════════════════════════════════════════════════════════ */
+/* MAIN CONTENT */
+/* ════════════════════════════════════════════════════════════════ */
+.main {
+    flex: 1;
+    padding: 2em;
+    background-color: #f5f5f5;
+}
+
+/* ════════════════════════════════════════════════════════════════ */
+/* FOOTER */
+/* ════════════════════════════════════════════════════════════════ */
+.footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1.5em 2em;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+.footer div {
+    margin: 0.5em 0;
+}
+
+/* ════════════════════════════════════════════════════════════════ */
+/* MODAL LOGIN */
+/* ════════════════════════════════════════════════════════════════ */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.login-overlay--after-open {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.login-overlay--before-close {
+    animation: fadeOut 0.3s ease-in-out;
+}
+
+.login-content {
+    position: absolute;
+    top: -10px;
+    background: white;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: top 500ms linear;
+    text-align: center;
+    min-width: 350px;
+    border: 2px solid #3498db;
+}
+
+.login-content--after-open {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.login-content--before-close {
+    top: -10px;
+}
+
+.login-title {
+    font-size: 1.5em;
+    color: #2c3e50;
+    margin-bottom: 1.5em;
+    font-weight: bold;
+}
+
+.login-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1em;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+}
+
+.login-form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.login-form-group label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5em;
+    font-size: 0.95em;
+}
+
+.login-form-group input {
+    padding: 0.8em;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: inherit;
+}
+
+.login-form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+}
+
+.login-form-group input:disabled {
+    background-color: #ecf0f1;
+    cursor: not-allowed;
+}
+
+.login-buttons {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    margin-top: 1.5em;
+}
+
+.login-btn, .cancel-btn {
+    padding: 0.8em 1.8em;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+.login-btn:hover:not(:disabled) {
+    background-color: #2980b9;
+}
+
+.login-btn:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.cancel-btn {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+.cancel-btn:hover:not(:disabled) {
+    background-color: #bdc3c7;
+}
+
+.cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.login-error {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+    padding: 0.7em;
+    background-color: #fadbd8;
+    border-radius: 4px;
+    border-left: 3px solid #e74c3c;
+}
+
+/* ════════════════════════════════════════════════════════════════ */
+/* DASHBOARD CONTENT */
+/* ════════════════════════════════════════════════════════════════ */
+.dashboard-header {
+    background-color: white;
+    padding: 2em;
+    border-radius: 4px;
+    margin-bottom: 2em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-header h1 {
+    color: #2c3e50;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.dashboard-header p {
+    color: #7f8c8d;
+    font-size: 1em;
+}
+
+.dashboard-buttons {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    margin-top: 1.5em;
+}
+
+.btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* ════════════════════════════════════════════════════════════════ */
+/* ANIMACIONES */
+/* ════════════════════════════════════════════════════════════════ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
