@@ -22,7 +22,6 @@ public class PublicoController {
         this.caracteristicaRepo = caracteristicaRepo;
     }
 
-    // GET /api/publico/puestos/recientes → los 5 más recientes
     @GetMapping("/puestos/recientes")
     public ResponseEntity<List<PuestoPublicoDTO>> recientes() {
         List<PuestoPublicoDTO> lista = puestoRepo
@@ -33,7 +32,6 @@ public class PublicoController {
         return ResponseEntity.ok(lista);
     }
 
-    // GET /api/publico/puestos/buscar?ids=1&ids=2 → búsqueda por características
     @GetMapping("/puestos/buscar")
     public ResponseEntity<List<PuestoPublicoDTO>> buscar(
             @RequestParam(required = false) List<Integer> ids) {
@@ -51,7 +49,6 @@ public class PublicoController {
         return ResponseEntity.ok(lista);
     }
 
-    // GET /api/publico/caracteristicas → árbol jerárquico
     @GetMapping("/caracteristicas")
     public ResponseEntity<List<CaracteristicaArbolDTO>> caracteristicas() {
         List<CaracteristicaArbolDTO> arbol = caracteristicaRepo

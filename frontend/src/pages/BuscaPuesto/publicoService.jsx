@@ -20,3 +20,27 @@ export async function getCaracteristicas() {
   if (!res.ok) throw new Error('Error al cargar características');
   return res.json();
 }
+export async function registrarEmpresa(form) {
+    const res = await fetch('http://localhost:8080/api/empresa/registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg || 'Error al registrar la empresa');
+    }
+    return res;
+}
+export async function registrarOferente(form) {
+    const res = await fetch('http://localhost:8080/api/oferente/registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg || 'Error al registrar el oferente');
+    }
+    return res;
+}

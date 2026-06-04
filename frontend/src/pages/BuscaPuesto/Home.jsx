@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PuestoCard from '../../components/PuestoCard.jsx';
+import ArbolCaracteristicas from '../../components/ArbolCaracteristicas.jsx';
 import { getPuestosRecientes } from './publicoService.jsx';
 
 export default function Home() {

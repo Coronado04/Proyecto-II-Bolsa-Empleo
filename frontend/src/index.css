@@ -57,6 +57,7 @@ footer {
     border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin: 4px 2px;
 }
 .btn:hover { background: #155a9e; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .btn-secondary {
     display: inline-block; padding: 8px 18px; background: #e0e0e0; color: #333;
     border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin: 4px 2px;
@@ -92,6 +93,27 @@ footer {
 
 /* ── Dos columnas (buscar) ── */
 .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+
+/* ── Formularios (registro empresa / oferente) ── */
+.form-box {
+    background: white; border: 1px solid #ddd; border-radius: 6px;
+    padding: 24px; max-width: 500px; margin: 0 auto;
+}
+.field-group { margin-bottom: 14px; }
+.field-group label {
+    display: block; font-size: 13px; font-weight: bold;
+    margin-bottom: 4px; color: #444;
+}
+.field-group input,
+.field-group textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid #ccc;
+    border-radius: 4px; font-size: 14px; font-family: inherit;
+}
+.field-group input:focus,
+.field-group textarea:focus {
+    outline: none; border-color: #1a6bbf;
+}
+.field-group textarea { resize: vertical; min-height: 80px; }
 
 /* ── Mensajes ── */
 .error { background: #fde8e8; color: #c0392b; padding: 10px 14px; border-radius: 4px; margin: 10px 0; font-size: 14px; }
