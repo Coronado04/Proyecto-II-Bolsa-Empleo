@@ -1,5 +1,6 @@
 package progra4.backend.logic;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -17,6 +18,7 @@ public class Caracteristica {
 
     @ManyToOne
     @JoinColumn(name = "padre_id")
+    @JsonIgnore
     private Caracteristica padre;
 
     @OneToMany(mappedBy = "padre")

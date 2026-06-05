@@ -2,7 +2,6 @@ package progra4.backend.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import progra4.backend.data.*;
 import progra4.backend.logic.*;
@@ -31,8 +30,8 @@ public class EmpresaController {
     }
 
     // ── Helper: obtener empresa del token ─────────────────────
-    private Empresa getEmpresa(UserDetails ud) {
-        Usuario u = usuarioRepo.findByCorreo(ud.getUsername())
+    private Empresa getEmpresa(String correo) {
+        Usuario u = usuarioRepo.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         return empresaRepo.findByUsuario(u)
                 .orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
@@ -41,20 +40,23 @@ public class EmpresaController {
     // ── GET /api/empresa/puestos ──────────────────────────────
     // Retorna todos los puestos de la empresa autenticada
     @GetMapping("/puestos")
-    public ResponseEntity<?> misPuestos(@AuthenticationPrincipal UserDetails ud) {
-        Empresa empresa = getEmpresa(ud);
+    public ResponseEntity<?> misPuestos(@AuthenticationPrincipal String correo) {
+        Empresa empresa = getEmpresa(correo);
         List<Puesto> lista = puestoRepo.findByEmpresa(empresa);
-        return ResponseEntity.ok(lista);
+        List<PuestoEmpresaDTO> dto = lista.stream()
+                .map(PuestoEmpresaDTO::new)
+                .collect(java.util.stream.Collectors.toList());
+        return ResponseEntity.ok(dto);
     }
 
     // ── POST /api/empresa/puestos ─────────────────────────────
     // Publica un nuevo puesto
     @PostMapping("/puestos")
     public ResponseEntity<?> publicarPuesto(
-            @AuthenticationPrincipal UserDetails ud,
+            @AuthenticationPrincipal String correo,
             @RequestBody Map<String, Object> body) {
 
-        Empresa empresa = getEmpresa(ud);
+        Empresa empresa = getEmpresa(correo);
 
         String descripcion = (String) body.get("descripcion");
         Double salario     = body.get("salario") != null
@@ -97,10 +99,10 @@ public class EmpresaController {
     // ── PUT /api/empresa/puestos/{id}/desactivar ──────────────
     @PutMapping("/puestos/{id}/desactivar")
     public ResponseEntity<?> desactivarPuesto(
-            @AuthenticationPrincipal UserDetails ud,
+            @AuthenticationPrincipal String correo,
             @PathVariable Integer id) {
 
-        Empresa empresa = getEmpresa(ud);
+        Empresa empresa = getEmpresa(correo);
         Puesto puesto = puestoRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Puesto no encontrado"));
 
