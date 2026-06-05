@@ -84,7 +84,6 @@ public class AdminController {
             @RequestParam(required = false) Integer padreId) {
 
         if (padreId == null) {
-            // Devuelve raíces
             List<Caracteristica> raices = caracteristicaRepo.findByPadreIsNull();
             return ResponseEntity.ok(raices.stream().map(c -> Map.of(
                     "id", c.getId(), "nombre", c.getNombre(),
@@ -93,7 +92,6 @@ public class AdminController {
         } else {
             Caracteristica actual = caracteristicaRepo.findById(padreId).orElse(null);
             if (actual == null) return ResponseEntity.notFound().build();
-
             List<Caracteristica> hijos = actual.getHijos() == null ? List.of() : actual.getHijos();
             return ResponseEntity.ok(Map.of(
                     "actual", Map.of("id", actual.getId(), "nombre", actual.getNombre()),

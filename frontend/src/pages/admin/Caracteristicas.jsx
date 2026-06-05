@@ -2,23 +2,25 @@ import { useEffect, useState } from 'react';
 import { getCaracteristicas, crearCaracteristica } from '../../services/adminService';
 
 export default function Caracteristicas({ onNavegar }) {
-    const [hijos,    setHijos]    = useState([]);
-    const [actual,   setActual]   = useState(null);   // nodo actual { id, nombre }
-    const [ruta,     setRuta]     = useState([]);      // breadcrumb
-    const [nombre,   setNombre]   = useState('');
-    const [error,    setError]    = useState('');
-    const [exito,    setExito]    = useState('');
+    const [hijos,  setHijos]  = useState([]);
+    const [actual, setActual] = useState(null);
+    const [ruta,   setRuta]   = useState([]);
+    const [nombre, setNombre] = useState('');
+    const [error,  setError]  = useState('');
+    const [exito,  setExito]  = useState('');
 
     useEffect(() => { cargar(null); }, []);
 
     async function cargar(padreId) {
+        setError('');
         try {
             const data = await getCaracteristicas(padreId);
             if (padreId == null) {
+                // data es un array plano de raíces
                 setActual(null);
                 setHijos(data);
-                setRuta([]);
             } else {
+                // data es { actual: {...}, hijos: [...] }
                 setActual(data.actual);
                 setHijos(data.hijos);
             }
@@ -33,12 +35,10 @@ export default function Caracteristicas({ onNavegar }) {
     function irARuta(index) {
         if (index === -1) {
             setRuta([]);
-            setActual(null);
             cargar(null);
         } else {
             const nodo = ruta[index];
             setRuta(prev => prev.slice(0, index + 1));
-            setActual(nodo);
             cargar(nodo.id);
         }
     }
@@ -58,7 +58,6 @@ export default function Caracteristicas({ onNavegar }) {
         <main>
             <h2>Características</h2>
 
-            {/* Breadcrumb */}
             <div className="breadcrumb">
                 <span className="breadcrumb-link" onClick={() => irARuta(-1)}>Raíces</span>
                 {ruta.map((r, i) => (
@@ -73,7 +72,6 @@ export default function Caracteristicas({ onNavegar }) {
             {exito && <p className="success">{exito}</p>}
 
             <div className="dos-columnas" style={{ marginTop: '16px' }}>
-                {/* Lista de hijos */}
                 <div>
                     <p>{actual ? <>Subcategorías de: <strong>{actual.nombre}</strong></> : 'Categorías raíces'}</p>
                     {hijos.length === 0
@@ -81,20 +79,18 @@ export default function Caracteristicas({ onNavegar }) {
                         : hijos.map(h => (
                             <div key={h.id} className="tree-item-row">
                                 <span>{h.nombre}</span>
-                                {h.tieneHijos &&
-                                    <button className="btn-sm" onClick={() => entrar(h)}>Entrar</button>
-                                }
+                                <button className="btn-sm" onClick={() => entrar(h)}>Entrar</button>
                             </div>
                         ))
                     }
                 </div>
 
-                {/* Formulario agregar */}
                 <div className="form-box">
                     <h3>Agregar característica</h3>
                     <div className="field-group">
                         <label>Nombre</label>
-                        <input type="text" value={nombre} onChange={e => setNombre(e.target.value)}
+                        <input type="text" value={nombre}
+                               onChange={e => setNombre(e.target.value)}
                                onKeyDown={e => e.key === 'Enter' && handleCrear()} />
                     </div>
                     {actual &&
