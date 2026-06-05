@@ -15,6 +15,7 @@ import './App.css';
 import OferenteDashboard from './pages/oferente/OferenteDashboard.jsx';
 import MisHabilidades from './pages/oferente/MisHabilidades';
 import MiCV from './pages/oferente/MiCV';
+import Caracteristicas from './pages/admin/Caracteristicas';
 
 export default function App() {
     const [pagina,     setPagina]     = useState('home');
@@ -45,6 +46,7 @@ export default function App() {
             case 'admin-dashboard':        return <AdminDashboard onNavegar={setPagina} />;
             case 'empresas-pendientes':    return <EmpresasPendientes onNavegar={setPagina} />;
             case 'oferentes-pendientes':   return <OferentesPendientes onNavegar={setPagina} />;
+            case 'caracteristicas': return <Caracteristicas onNavegar={setPagina} />;
 
             // ── Empresa ───────────────────────────────────────────
             case 'empresa-dashboard': return <EmpresaDashboard vistaInicial="dashboard" />;
@@ -57,17 +59,8 @@ export default function App() {
             case 'mi-cv':              return <MiCV onNavegar={setPagina} />;
 
 
-
-            // ── En construcción ───────────────────────────────────
             default:
-                return (
-                    <main>
-                        <h2>Sección en construcción</h2>
-                        <p style={{ color: '#777', marginTop: '8px' }}>
-                            Esta funcionalidad se implementará en próximos avances.
-                        </p>
-                    </main>
-                );
+
         }
     }
 

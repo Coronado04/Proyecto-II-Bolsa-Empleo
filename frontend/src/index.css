@@ -75,3 +75,10 @@ footer { background-color: #1f2a33; color: #aaa; padding: 14px; font-size: 13px;
 .tabla thead tr { background: #f3f3f3; }
 .btn-danger { background: #c0392b !important; }
 .btn-danger:hover { background: #a93226 !important; }
+
+.breadcrumb { font-size: 14px; color: #555; margin-bottom: 8px; }
+.breadcrumb-link { color: #1a6bbf; cursor: pointer; }
+.breadcrumb-link:hover { text-decoration: underline; }
+.tree-item-row { display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 10px; border: 1px solid #ddd; border-radius: 4px;
+    background: white; margin-bottom: 6px; font-size: 14px; }

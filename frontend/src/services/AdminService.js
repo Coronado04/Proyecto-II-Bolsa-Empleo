@@ -39,3 +39,27 @@ export async function aprobarUsuario(id) {
     if (!res.ok) throw new Error('Error al aprobar usuario');
     return res.json();
 }
+
+const BASE = 'http://localhost:8080/api/admin';
+function auth() {
+    return { 'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+}
+
+export async function getCaracteristicas(padreId = null) {
+    const url = padreId ? `${BASE}/caracteristicas?padreId=${padreId}`
+        : `${BASE}/caracteristicas`;
+    const res = await fetch(url, { headers: auth() });
+    if (!res.ok) throw new Error('Error al cargar');
+    return res.json();
+}
+
+export async function crearCaracteristica(nombre, padreId = null) {
+    const res = await fetch(`${BASE}/caracteristicas`, {
+        method: 'POST', headers: auth(),
+        body: JSON.stringify({ nombre, padreId })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Error');
+    return data;
+}

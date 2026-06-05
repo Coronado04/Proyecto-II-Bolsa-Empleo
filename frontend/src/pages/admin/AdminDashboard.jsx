@@ -25,7 +25,7 @@
                     <button className="btn" onClick={() => onNavegar('oferentes-pendientes')}>
                         Oferentes pendientes ({resumen.oferentesPendientes})
                     </button>
-                    <button className="btn" onClick={() => onNavegar('adminCaracteristicas')}>
+                    <button className="btn" onClick={() => onNavegar('caracteristicas')}>
                         Características
                     </button>
                 </div>
