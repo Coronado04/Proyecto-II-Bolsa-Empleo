@@ -7,6 +7,7 @@ import RegistroEmpresa from './pages/RegistroEmpresa';
 import RegistroOferente from './pages/RegistroOferente';
 import LoginModal from './components/LoginModal';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import EmpresaDashboard from './pages/empresa/EmpresaDashboard';
 import EmpresasPendientes from './pages/admin/EmpresasPendientes';
 import OferentesPendientes from './pages/admin/OferentesPendientes';
 import { logout, getRol, getCorreo, isLoggedIn } from './services/authService';
@@ -41,6 +42,13 @@ export default function App() {
             case 'admin-dashboard':        return <AdminDashboard onNavegar={setPagina} />;
             case 'empresas-pendientes':    return <EmpresasPendientes onNavegar={setPagina} />;
             case 'oferentes-pendientes':   return <OferentesPendientes onNavegar={setPagina} />;
+
+            // ── Empresa ───────────────────────────────────────────
+            case 'empresa-dashboard': return <EmpresaDashboard vistaInicial="dashboard" />;
+            case 'mis-puestos':       return <EmpresaDashboard vistaInicial="mis-puestos" />;
+            case 'publicar-puesto':   return <EmpresaDashboard vistaInicial="publicar-puesto" />;
+
+
 
             // ── En construcción ───────────────────────────────────
             default:

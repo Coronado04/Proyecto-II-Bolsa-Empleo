@@ -26,6 +26,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration cfg = new CorsConfiguration();
                     cfg.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
@@ -37,7 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/publico/**", "/api/auth/login").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADM")
-                        .requestMatchers("/api/empresa/**").hasAuthority("EMP")
+                        .requestMatchers("/api/empresa/**").authenticated()
                         .requestMatchers("/api/oferente/**").hasAnyAuthority("OFE","EMP")
                         .anyRequest().authenticated()
                 )
