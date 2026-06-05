@@ -8,6 +8,7 @@ header .header-inner { display: flex; justify-content: space-between; align-item
 .logo-seccion { display: flex; align-items: center; gap: 10px; }
 .logo-link { display: flex; align-items: center; text-decoration: none; }
 .logo-img { width: 40px; height: 40px; margin-right: 10px; }
+.login-img{width: 80px; height: 80px; margin-right: 6px;}
 .titulo { color: white; font-weight: bold; font-size: 20px; }
 
 header nav { display: flex; gap: 20px; align-items: center; }

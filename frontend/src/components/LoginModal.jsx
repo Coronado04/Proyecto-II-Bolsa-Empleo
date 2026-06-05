@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { login } from '../services/authService';
+import loginImg from "../assets/login.jpeg";
 export default function LoginModal({ onClose, onLoginSuccess }) {
   const [correo, setCorreo] = useState('');
   const [clave, setClave] = useState('');
@@ -14,7 +15,9 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
   return (
     <div className="modal-overlay" onClick={e => e.target===e.currentTarget && onClose()}>
       <div className="modal-box">
-        <div className="modal-icon">👤</div>
+        <div className="modal-icon">
+            <img src={loginImg} alt="Logo" className="login-img" />
+        </div>
         <h2 className="modal-title">Login</h2>
         {error && <p className="error" style={{marginBottom:'10px'}}>{error}</p>}
         <div className="field-group">
