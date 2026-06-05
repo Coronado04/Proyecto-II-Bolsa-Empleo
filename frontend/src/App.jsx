@@ -12,6 +12,9 @@ import EmpresasPendientes from './pages/admin/EmpresasPendientes';
 import OferentesPendientes from './pages/admin/OferentesPendientes';
 import { logout, getRol, getCorreo, isLoggedIn } from './services/authService';
 import './App.css';
+import OferenteDashboard from './pages/oferente/OferenteDashboard.jsx';
+import MisHabilidades from './pages/oferente/MisHabilidades';
+import MiCV from './pages/oferente/MiCV';
 
 export default function App() {
     const [pagina,     setPagina]     = useState('home');
@@ -48,6 +51,11 @@ export default function App() {
             case 'mis-puestos':       return <EmpresaDashboard vistaInicial="mis-puestos" />;
             case 'publicar-puesto':   return <EmpresaDashboard vistaInicial="publicar-puesto" />;
 
+            //Oferente
+            case 'oferente-dashboard': return <OferenteDashboard onNavegar={setPagina} />;
+            case 'mis-habilidades':    return <MisHabilidades onNavegar={setPagina} />;
+            case 'mi-cv':              return <MiCV onNavegar={setPagina} />;
+
 
 
             // ── En construcción ───────────────────────────────────
@@ -74,4 +82,6 @@ export default function App() {
             )}
         </div>
     );
+
 }
+

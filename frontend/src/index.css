@@ -69,3 +69,9 @@ footer { background-color: #1f2a33; color: #aaa; padding: 14px; font-size: 13px;
 }
 .form-box h2 { margin-bottom: 16px; font-size: 1.3rem; }
 .field-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; height: 80px; resize: vertical; }
+
+.tabla { width: 100%; border-collapse: collapse; background: white; }
+.tabla th, .tabla td { padding: 8px 12px; border: 1px solid #ddd; font-size: 14px; text-align: left; }
+.tabla thead tr { background: #f3f3f3; }
+.btn-danger { background: #c0392b !important; }
+.btn-danger:hover { background: #a93226 !important; }
