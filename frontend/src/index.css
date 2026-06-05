@@ -1,120 +1,70 @@
-/* ── Reset básico ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: Arial, sans-serif; font-size: 15px; color: #333; background: #f5f5f5; }
 a { color: #1a6bbf; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* ── Header ── */
-header {
-    background-color: #1f2a33;
-    padding: 10px 20px;
-}
-header .header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-}
+header { background-color: #1f2a33; padding: 10px 20px; }
+header .header-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
 .logo-seccion { display: flex; align-items: center; gap: 10px; }
 .logo-link { display: flex; align-items: center; text-decoration: none; }
 .logo-img { width: 40px; height: 40px; margin-right: 10px; }
 .titulo { color: white; font-weight: bold; font-size: 20px; }
 
 header nav { display: flex; gap: 20px; align-items: center; }
-header nav a { color: #cfd8dc; text-decoration: none; font-size: 14px; }
-header nav a:hover { color: white; }
-header nav button {
-    background: none; border: none; color: #cfd8dc;
-    font-size: 14px; cursor: pointer; padding: 0;
-}
+header nav button { background: none; border: none; color: #cfd8dc; font-size: 14px; cursor: pointer; padding: 0; }
 header nav button:hover { color: white; }
-header nav button.nav-login {
-    background: #1a6bbf; color: white;
-    padding: 5px 14px; border-radius: 4px; font-size: 14px;
-}
+header nav button.nav-login { background: #1a6bbf; color: white; padding: 5px 14px; border-radius: 4px; }
 header nav button.nav-login:hover { background: #155a9e; }
 
-/* ── Main ── */
 main { max-width: 1100px; margin: 24px auto; padding: 0 24px; }
 h1 { font-size: 1.6rem; margin-bottom: 8px; }
 h2 { font-size: 1.3rem; margin-bottom: 12px; }
 h3 { font-size: 1.1rem; margin-bottom: 8px; }
 
-/* ── Footer ── */
-footer {
-    background-color: #1f2a33;
-    color: #aaa; padding: 14px; font-size: 13px; margin-top: 40px;
-}
+footer { background-color: #1f2a33; color: #aaa; padding: 14px; font-size: 13px; margin-top: 40px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; }
-.MiniTitulo { text-align: left; font-weight: bold; color: white; font-size: 15px; }
-.SubMiniTitulo { text-align: left; font-weight: normal; color: white; font-size: 14px; }
+.MiniTitulo { font-weight: bold; color: white; font-size: 15px; }
+.SubMiniTitulo { color: white; font-size: 14px; }
 .derecha { text-align: right; color: white; }
 
-/* ── Botones ── */
-.btn {
-    display: inline-block; padding: 8px 18px; background: #1a6bbf; color: white;
-    border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin: 4px 2px;
-}
+.btn { display: inline-block; padding: 8px 18px; background: #1a6bbf; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin: 4px 2px; }
 .btn:hover { background: #155a9e; }
-.btn:disabled { opacity: 0.6; cursor: not-allowed; }
-.btn-secondary {
-    display: inline-block; padding: 8px 18px; background: #e0e0e0; color: #333;
-    border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin: 4px 2px;
-}
-.btn-sm {
-    display: inline-block; padding: 4px 10px; background: #1a6bbf; color: white;
-    border: none; border-radius: 3px; font-size: 12px; margin: 2px; cursor: pointer;
-}
+.btn-secondary { display: inline-block; padding: 8px 18px; background: #e0e0e0; color: #333; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin: 4px 2px; }
+.btn-secondary:hover { background: #ccc; }
+.btn-sm { display: inline-block; padding: 4px 10px; background: #1a6bbf; color: white; border: none; border-radius: 3px; font-size: 12px; margin: 2px; cursor: pointer; }
 .btn-sm:hover { background: #155a9e; }
 
-/* ── Puestos grid ── */
 .puestos-grid { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
-.puesto-card {
-    background: white; border: 1px solid #ddd; border-radius: 6px;
-    padding: 16px; width: 260px; position: relative;
-}
+.puesto-card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 16px; width: 260px; position: relative; }
 .puesto-card strong { display: block; font-size: 15px; margin-bottom: 4px; }
 .puesto-card p { font-size: 13px; color: #555; margin: 4px 0; }
 
-/* ── Tooltip puro CSS ── */
 .tooltip-wrap { position: relative; display: inline-block; margin-top: 8px; }
-.tooltip-content {
-    display: none; position: absolute; bottom: 110%; left: 0;
-    background: #333; color: white; padding: 10px 14px; border-radius: 5px;
-    width: 240px; font-size: 12px; z-index: 10;
-}
+.tooltip-content { display: none; position: absolute; bottom: 110%; left: 0; background: #333; color: white; padding: 10px 14px; border-radius: 5px; width: 240px; font-size: 12px; z-index: 10; }
 .tooltip-content ul { margin: 6px 0 0 16px; }
 .tooltip-wrap:hover .tooltip-content { display: block; }
 
-/* ── Árbol de checkboxes ── */
 .tree-check { background: white; border: 1px solid #ddd; border-radius: 4px; padding: 12px; margin-bottom: 12px; }
 .tree-check label { display: block; padding: 3px 0; font-size: 14px; cursor: pointer; }
-
-/* ── Dos columnas (buscar) ── */
 .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
 
-/* ── Formularios (registro empresa / oferente) ── */
-.form-box {
-    background: white; border: 1px solid #ddd; border-radius: 6px;
-    padding: 24px; max-width: 500px; margin: 0 auto;
-}
-.field-group { margin-bottom: 14px; }
-.field-group label {
-    display: block; font-size: 13px; font-weight: bold;
-    margin-bottom: 4px; color: #444;
-}
-.field-group input,
-.field-group textarea {
-    width: 100%; padding: 8px 10px; border: 1px solid #ccc;
-    border-radius: 4px; font-size: 14px; font-family: inherit;
-}
-.field-group input:focus,
-.field-group textarea:focus {
-    outline: none; border-color: #1a6bbf;
-}
-.field-group textarea { resize: vertical; min-height: 80px; }
-
-/* ── Mensajes ── */
 .error { background: #fde8e8; color: #c0392b; padding: 10px 14px; border-radius: 4px; margin: 10px 0; font-size: 14px; }
 .success { background: #e8f5e9; color: #27ae60; padding: 10px 14px; border-radius: 4px; margin: 10px 0; font-size: 14px; }
+
+.field-group { margin-bottom: 14px; }
+.field-group label { display: block; font-size: 13px; color: #555; margin-bottom: 4px; }
+.field-group input { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+
+/* Modal Login */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-box { background: white; border-radius: 8px; padding: 28px 32px; width: 320px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+.modal-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.modal-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 16px; color: #222; }
+.modal-box .field-group { text-align: left; }
+
+.form-box {
+  background: white; border: 1px solid #ddd; border-radius: 6px;
+  padding: 24px; max-width: 360px; width: 100%; margin: 0 auto;
+}
+.form-box h2 { margin-bottom: 16px; font-size: 1.3rem; }
+.field-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; height: 80px; resize: vertical; }

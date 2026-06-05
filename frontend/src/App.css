@@ -1,3 +1,2 @@
-/* App shell sin estilos propios — todo viene de index.css igual que el proyecto viejo */
 .app-shell { min-height: 100vh; display: flex; flex-direction: column; }
 .app-shell > main { flex: 1; }

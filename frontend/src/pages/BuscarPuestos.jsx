@@ -1,0 +1,41 @@
+import { useEffect, useState } from 'react';
+import ArbolCaracteristicas from '../components/ArbolCaracteristicas';
+import { buscarPuestos, getCaracteristicas } from '../services/publicoService';
+export default function BuscarPuestos() {
+  const [arbol, setArbol] = useState([]);
+  const [seleccionados, setSeleccionados] = useState(new Set());
+  const [resultados, setResultados] = useState([]);
+  const [buscado, setBuscado] = useState(false);
+  const [error, setError] = useState(null);
+  useEffect(() => { getCaracteristicas().then(setArbol).catch(e=>setError(e.message)); }, []);
+  function toggle(id) { setSeleccionados(p=>{const n=new Set(p);n.has(id)?n.delete(id):n.add(id);return n;}); }
+  function limpiar() { setSeleccionados(new Set()); setResultados([]); setBuscado(false); }
+  async function handleBuscar() {
+    try { const d=await buscarPuestos([...seleccionados]); setResultados(d); setBuscado(true); }
+    catch(e) { setError(e.message); }
+  }
+  return (
+    <main>
+      <h2>Buscar puestos por características</h2>
+      {error && <p className="error">{error}</p>}
+      <div className="dos-columnas">
+        <div>
+          <div className="tree-check">
+            <ArbolCaracteristicas nodos={arbol} seleccionados={seleccionados} onToggle={toggle} />
+          </div>
+          <button className="btn" onClick={handleBuscar}>Buscar</button>
+          <button className="btn-secondary" onClick={limpiar}>Limpiar</button>
+        </div>
+        <div>
+          <h3>Resultados</h3>
+          {buscado && resultados.length===0 && <p>No se encontraron puestos.</p>}
+          {resultados.map(p=>(
+            <div key={p.id} className="puesto-card" style={{width:'auto',marginBottom:'12px'}}>
+              <strong>{p.empresaNombre}</strong><p>{p.descripcion}</p><p>Salario: {p.salario}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
+  );
+}
