@@ -36,24 +36,20 @@ export default function App() {
 
     function renderPagina() {
         switch (pagina) {
-            // ── Público ──────────────────────────────────────────
             case 'home':              return <Home />;
             case 'buscar':            return <BuscarPuestos />;
             case 'registro-empresa':  return <RegistroEmpresa onNavegar={setPagina} />;
             case 'registro-oferente': return <RegistroOferente onNavegar={setPagina} />;
 
-            // ── Admin ─────────────────────────────────────────────
             case 'admin-dashboard':        return <AdminDashboard onNavegar={setPagina} />;
             case 'empresas-pendientes':    return <EmpresasPendientes onNavegar={setPagina} />;
             case 'oferentes-pendientes':   return <OferentesPendientes onNavegar={setPagina} />;
             case 'caracteristicas': return <Caracteristicas onNavegar={setPagina} />;
 
-            // ── Empresa ───────────────────────────────────────────
             case 'empresa-dashboard': return <EmpresaDashboard vistaInicial="dashboard" />;
             case 'mis-puestos':       return <EmpresaDashboard vistaInicial="mis-puestos" />;
             case 'publicar-puesto':   return <EmpresaDashboard vistaInicial="publicar-puesto" />;
 
-            //Oferente
             case 'oferente-dashboard': return <OferenteDashboard onNavegar={setPagina} />;
             case 'mis-habilidades':    return <MisHabilidades onNavegar={setPagina} />;
             case 'mi-cv':              return <MiCV onNavegar={setPagina} />;

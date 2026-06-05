@@ -1,4 +1,4 @@
-package progra4.backend.web;
+package progra4.backend.presentation.publico;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,8 +30,6 @@ public class RegistroController {
         this.oferenteRepo   = oferenteRepo;
         this.passwordEncoder = passwordEncoder;
     }
-
-    // POST /api/publico/registro/empresa
     @PostMapping("/empresa")
     public ResponseEntity<?> registrarEmpresa(@RequestBody Map<String, String> body) {
         String correo      = body.get("correo");
@@ -47,7 +45,6 @@ public class RegistroController {
         if (usuarioRepo.findByCorreo(correo).isPresent())
             return ResponseEntity.badRequest().body(Map.of("error","El correo ya está registrado"));
 
-        // Crear usuario (inactivo hasta que admin apruebe)
         Usuario u = new Usuario();
         u.setCorreo(correo);
         u.setClave(passwordEncoder.encode(clave));
@@ -55,7 +52,6 @@ public class RegistroController {
         u.setActivo(false);
         usuarioRepo.save(u);
 
-        // Crear empresa
         Empresa e = new Empresa();
         e.setUsuario(u);
         e.setNombre(nombre);
@@ -66,8 +62,6 @@ public class RegistroController {
 
         return ResponseEntity.ok(Map.of("mensaje","Empresa registrada. Espere la aprobación del administrador."));
     }
-
-    // POST /api/publico/registro/oferente
     @PostMapping("/oferente")
     public ResponseEntity<?> registrarOferente(@RequestBody Map<String, String> body) {
         String correo         = body.get("correo");
@@ -87,7 +81,6 @@ public class RegistroController {
         if (usuarioRepo.findByCorreo(correo).isPresent())
             return ResponseEntity.badRequest().body(Map.of("error","El correo ya está registrado"));
 
-        // Crear usuario (inactivo hasta que admin apruebe)
         Usuario u = new Usuario();
         u.setCorreo(correo);
         u.setClave(passwordEncoder.encode(clave));
@@ -95,7 +88,6 @@ public class RegistroController {
         u.setActivo(false);
         usuarioRepo.save(u);
 
-        // Crear oferente
         Oferente o = new Oferente();
         o.setUsuario(u);
         o.setIdentificacion(identificacion);

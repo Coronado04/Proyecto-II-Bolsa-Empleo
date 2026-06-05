@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { subirCV, getCvUrl } from "../../services/oferenteService";
+import { subirCV, verCV } from "../../services/oferenteService";
 
 export default function MiCV({ onNavegar }) {
     const [archivo,  setArchivo]  = useState(null);
@@ -30,8 +30,7 @@ export default function MiCV({ onNavegar }) {
 
             <div style={{marginBottom:'1.5rem'}}>
                 {tieneCv
-                    ? <p>CV actual: <a href={getCvUrl()} target="_blank"
-                                       className="btn-sm" rel="noreferrer">Ver CV en PDF</a></p>
+                    ? <p>CV actual: <button className="btn-sm" onClick={verCV}>Ver CV en PDF</button></p>
                     : <p>Aún no has subido tu CV.</p>
                 }
             </div>

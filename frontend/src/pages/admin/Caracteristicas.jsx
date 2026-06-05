@@ -16,11 +16,9 @@ export default function Caracteristicas({ onNavegar }) {
         try {
             const data = await getCaracteristicas(padreId);
             if (padreId == null) {
-                // data es un array plano de raíces
                 setActual(null);
                 setHijos(data);
             } else {
-                // data es { actual: {...}, hijos: [...] }
                 setActual(data.actual);
                 setHijos(data.hijos);
             }

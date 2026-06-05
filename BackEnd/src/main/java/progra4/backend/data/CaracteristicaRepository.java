@@ -7,7 +7,6 @@ import progra4.backend.logic.Caracteristica;
 import java.util.List;
 
 public interface CaracteristicaRepository extends JpaRepository<Caracteristica, Integer> {
-
     @Query("SELECT DISTINCT c FROM Caracteristica c WHERE c.padre IS NULL")
     List<Caracteristica> findByPadreIsNull();
 }

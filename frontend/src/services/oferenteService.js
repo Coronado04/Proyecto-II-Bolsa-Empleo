@@ -1,8 +1,10 @@
 const BASE = 'http://localhost:8080/api/oferente';
 
 function auth() {
-    return { 'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+    };
 }
 
 export async function getDashboard() {
@@ -47,8 +49,14 @@ export async function subirCV(archivo) {
     return data;
 }
 
-export function getCvUrl() {
-    return `${BASE}/cv/ver?token=${sessionStorage.getItem('token')}`;
+export async function verCV() {
+    const res = await fetch(`${BASE}/cv/ver`, {
+        headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
+    });
+    if (!res.ok) throw new Error('No se pudo cargar el CV');
+    const blob = await res.blob();
+    const url  = URL.createObjectURL(blob);
+    window.open(url, '_blank');
 }
 
 export async function getCaracteristicas() {

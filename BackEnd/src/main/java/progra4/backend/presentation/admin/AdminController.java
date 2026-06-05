@@ -22,8 +22,6 @@ public class AdminController {
         this.caracteristicaRepo = caracteristicaRepo;
     }
 
-    // GET /api/admin/resumen
-    // Devuelve cantidad de empresas y oferentes pendientes de aprobación
     @GetMapping("/resumen")
     public ResponseEntity<Map<String, Integer>> resumen() {
         int empresas  = usuarioRepo.findByRolAndActivoFalse("EMP").size();
@@ -34,8 +32,6 @@ public class AdminController {
         ));
     }
 
-    // GET /api/admin/empresas/pendientes
-    // Lista de usuarios empresa inactivos (pendientes de aprobación)
     @GetMapping("/empresas/pendientes")
     public ResponseEntity<List<UsuarioPendienteDTO>> empresasPendientes() {
         List<UsuarioPendienteDTO> lista = usuarioRepo
@@ -46,8 +42,6 @@ public class AdminController {
         return ResponseEntity.ok(lista);
     }
 
-    // GET /api/admin/oferentes/pendientes
-    // Lista de usuarios oferente inactivos (pendientes de aprobación)
     @GetMapping("/oferentes/pendientes")
     public ResponseEntity<List<UsuarioPendienteDTO>> oferentesPendientes() {
         List<UsuarioPendienteDTO> lista = usuarioRepo
@@ -58,27 +52,23 @@ public class AdminController {
         return ResponseEntity.ok(lista);
     }
 
-    // POST /api/admin/usuarios/{id}/aprobar
-    // Activa el usuario (aprobación del admin)
     @PostMapping("/usuarios/{id}/aprobar")
     public ResponseEntity<Map<String, String>> aprobar(@PathVariable Integer id) {
         return usuarioRepo.findById(id)
-                .map(u -> {
-                    u.setActivo(true);
-                    usuarioRepo.save(u);
-                    return ResponseEntity.ok(Map.of("mensaje", "Usuario aprobado correctamente."));
+          .map(u -> {
+         u.setActivo(true);
+         usuarioRepo.save(u);
+         return ResponseEntity.ok(Map.of("mensaje", "Usuario aprobado correctamente."));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // DTO de salida — solo expone id y correo al frontend
     record UsuarioPendienteDTO(Integer id, String correo) {
         UsuarioPendienteDTO(Usuario u) {
             this(u.getId(), u.getCorreo());
         }
     }
 
-    // GET /api/admin/caracteristicas?padreId=5  (padreId opcional)
     @GetMapping("/caracteristicas")
     public ResponseEntity<?> caracteristicas(
             @RequestParam(required = false) Integer padreId) {
@@ -103,7 +93,6 @@ public class AdminController {
         }
     }
 
-    // POST /api/admin/caracteristicas
     @PostMapping("/caracteristicas")
     public ResponseEntity<?> crearCaracteristica(@RequestBody Map<String, Object> body) {
         String nombre = (String) body.get("nombre");

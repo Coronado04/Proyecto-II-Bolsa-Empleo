@@ -1,4 +1,4 @@
-package progra4.backend.web;
+package progra4.backend.presentation.publico;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

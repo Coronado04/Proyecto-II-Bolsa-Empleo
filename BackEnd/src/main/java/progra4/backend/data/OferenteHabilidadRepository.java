@@ -10,9 +10,7 @@ import java.util.Optional;
 
 public interface OferenteHabilidadRepository
         extends JpaRepository<OferenteHabilidad, OferenteHabilidadId> {
-
     List<OferenteHabilidad> findByOferente(Oferente oferente);
-
     Optional<OferenteHabilidad> findByOferenteAndCaracteristicaId(
             Oferente oferente, Integer caracteristicaId);
 }

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import ArbolCaracteristicas from '../components/ArbolCaracteristicas';
 import { buscarPuestos, getCaracteristicas } from '../services/publicoService';
 
-// Recolecta todos los ids de un nodo y sus descendientes
 function recolectarIds(nodos, seleccionados) {
     const ids = new Set();
     function recorrer(lista) {
@@ -43,7 +42,6 @@ export default function BuscarPuestos() {
 
     async function handleBuscar() {
         try {
-            // Expandir selección: si marcás un padre, busca también por sus hijos
             const ids = recolectarIds(arbol, seleccionados);
             const d = await buscarPuestos(ids);
             setResultados(d);

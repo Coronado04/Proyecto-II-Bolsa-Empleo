@@ -1,4 +1,4 @@
-package progra4.backend.web;
+package progra4.backend.presentation.login;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,8 +16,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    public AuthController(UsuarioRepository usuarioRepo,
-                          PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+    public AuthController(UsuarioRepository usuarioRepo, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.usuarioRepo = usuarioRepo;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;

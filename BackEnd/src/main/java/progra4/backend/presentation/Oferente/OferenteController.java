@@ -1,4 +1,4 @@
-package progra4.backend.web;
+package progra4.backend.presentation.Oferente;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -29,17 +29,14 @@ public class OferenteController {
     private final UsuarioRepository        usuarioRepo;
     private static final String CV_DIR = "uploads/cv/";
 
-    public OferenteController(OferenteRepository oferenteRepo,
-                              OferenteHabilidadRepository habilidadRepo,
-                              CaracteristicaRepository caracteristicaRepo,
-                              UsuarioRepository usuarioRepo) {
+    public OferenteController(OferenteRepository oferenteRepo, OferenteHabilidadRepository habilidadRepo,
+      CaracteristicaRepository caracteristicaRepo, UsuarioRepository usuarioRepo) {
         this.oferenteRepo       = oferenteRepo;
         this.habilidadRepo      = habilidadRepo;
         this.caracteristicaRepo = caracteristicaRepo;
         this.usuarioRepo        = usuarioRepo;
     }
 
-    // ── Obtener datos del oferente logueado ──────────────────
     @GetMapping("/dashboard")
     public ResponseEntity<?> dashboard(@AuthenticationPrincipal String correo) {
         return oferenteRepo.findByUsuario(usuarioRepo.findByCorreo(correo).orElseThrow())
@@ -53,7 +50,6 @@ public class OferenteController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ── Mis habilidades ──────────────────────────────────────
     @GetMapping("/habilidades")
     public ResponseEntity<List<Map<String, Object>>> misHabilidades(
             @AuthenticationPrincipal String correo) {
@@ -107,7 +103,6 @@ public class OferenteController {
         return ResponseEntity.ok(Map.of("mensaje", "Habilidad eliminada"));
     }
 
-    // ── Mi CV ────────────────────────────────────────────────
     @PostMapping("/cv")
     public ResponseEntity<?> subirCV(
             @AuthenticationPrincipal String correo,
@@ -148,7 +143,6 @@ public class OferenteController {
         }
     }
 
-    // ── Árbol de características para el select ──────────────
     @GetMapping("/caracteristicas")
     public ResponseEntity<List<CaracteristicaArbolDTO>> caracteristicas() {
         return ResponseEntity.ok(

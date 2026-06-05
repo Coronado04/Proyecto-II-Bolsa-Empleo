@@ -14,7 +14,6 @@ function authHeaders() {
     };
 }
 
-// Obtener todos los puestos de la empresa autenticada
 export async function getMisPuestos() {
     const res = await fetch(`${BASE}/puestos`, {
         headers: authHeaders()
@@ -23,8 +22,6 @@ export async function getMisPuestos() {
     return res.json();
 }
 
-// Publicar un nuevo puesto
-// body: { descripcion, salario, tipo, caracteristicas: [{caracteristicaId, nivelDeseado}] }
 export async function publicarPuesto(body) {
     const res = await fetch(`${BASE}/puestos`, {
         method: 'POST',
@@ -38,7 +35,6 @@ export async function publicarPuesto(body) {
     return res.json();
 }
 
-// Desactivar un puesto por ID
 export async function desactivarPuesto(id) {
     const res = await fetch(`${BASE}/puestos/${id}/desactivar`, {
         method: 'PUT',
@@ -48,7 +44,6 @@ export async function desactivarPuesto(id) {
     return res.json();
 }
 
-// Obtener árbol de características
 export async function getCaracteristicas() {
     const res = await fetch(`${BASE}/caracteristicas`, {
         headers: authHeaders()

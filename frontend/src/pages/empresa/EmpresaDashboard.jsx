@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { getMisPuestos, publicarPuesto, desactivarPuesto, getCaracteristicas } from '../../services/empresaService';
 
-// Fuera del componente para evitar problemas de hoisting/ESLint
 function aplanar(raices, nivel = 0) {
     const result = [];
     for (const c of raices) {
@@ -13,11 +12,10 @@ function aplanar(raices, nivel = 0) {
     return result;
 }
 
-// ── Vista: Dashboard principal ────────────────────────────────
 function DashboardHome({ onNavigate }) {
     return (
         <div style={styles.section}>
-            <h2 style={styles.sectionTitle}>🏢 Panel de Empresa</h2>
+            <h2 style={styles.sectionTitle}>Empresa - Dashboard</h2>
             <p style={styles.subtitle}>Desde aquí podés administrar tus puestos y buscar candidatos.</p>
             <div style={styles.btnRow}>
                 <button style={styles.btnPrimary} onClick={() => onNavigate('mis-puestos')}>
@@ -31,7 +29,6 @@ function DashboardHome({ onNavigate }) {
     );
 }
 
-// ── Vista: Mis Puestos ────────────────────────────────────────
 function MisPuestos({ onNavigate }) {
     const [puestos, setPuestos] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -119,7 +116,6 @@ function MisPuestos({ onNavigate }) {
     );
 }
 
-// ── Vista: Publicar Puesto ────────────────────────────────────
 function PublicarPuesto({ onNavigate }) {
     const [descripcion, setDescripcion] = useState('');
     const [salario, setSalario]         = useState('');
@@ -279,7 +275,6 @@ function PublicarPuesto({ onNavigate }) {
     );
 }
 
-// ── Componente principal ──────────────────────────────────────
 export default function EmpresaDashboard({ vistaInicial }) {
     const [vista, setVista] = useState(() => vistaInicial || 'dashboard');
 
@@ -299,7 +294,6 @@ export default function EmpresaDashboard({ vistaInicial }) {
     );
 }
 
-// ── Estilos inline (consistentes con el resto del proyecto) ───
 const styles = {
     wrapper: {
         padding: '2em',
