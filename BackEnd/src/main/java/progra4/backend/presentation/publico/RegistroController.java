@@ -16,34 +16,46 @@ import java.util.Map;
 @RequestMapping("/api/publico/registro")
 public class RegistroController {
 
-    private final UsuarioRepository usuarioRepo;
-    private final EmpresaRepository empresaRepo;
+    private final UsuarioRepository  usuarioRepo;
+    private final EmpresaRepository  empresaRepo;
     private final OferenteRepository oferenteRepo;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder    passwordEncoder;
 
     public RegistroController(UsuarioRepository usuarioRepo,
                               EmpresaRepository empresaRepo,
                               OferenteRepository oferenteRepo,
                               PasswordEncoder passwordEncoder) {
-        this.usuarioRepo    = usuarioRepo;
-        this.empresaRepo    = empresaRepo;
-        this.oferenteRepo   = oferenteRepo;
+        this.usuarioRepo     = usuarioRepo;
+        this.empresaRepo     = empresaRepo;
+        this.oferenteRepo    = oferenteRepo;
         this.passwordEncoder = passwordEncoder;
     }
+
+    // ── POST /api/publico/registro/empresa ───────────────────
     @PostMapping("/empresa")
     public ResponseEntity<?> registrarEmpresa(@RequestBody Map<String, String> body) {
-        String correo      = body.get("correo");
-        String clave       = body.get("clave");
-        String nombre      = body.get("nombre");
+        String correo       = body.get("correo");
+        String clave        = body.get("clave");
+        String nombre       = body.get("nombre");
         String localizacion = body.get("localizacion");
-        String telefono    = body.get("telefono");
-        String descripcion = body.get("descripcion");
+        String telefono     = body.get("telefono");
+        String descripcion  = body.get("descripcion");
 
-        if (correo==null||correo.isBlank() || clave==null||clave.isBlank() || nombre==null||nombre.isBlank())
-            return ResponseEntity.badRequest().body(Map.of("error","Correo, clave y nombre son obligatorios"));
+        // Campos obligatorios
+        if (correo == null || correo.isBlank() || clave == null || clave.isBlank()
+                || nombre == null || nombre.isBlank())
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Correo, clave y nombre son obligatorios."));
 
+        // Correo duplicado
         if (usuarioRepo.findByCorreo(correo).isPresent())
-            return ResponseEntity.badRequest().body(Map.of("error","El correo ya está registrado"));
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "El correo ya está registrado."));
+
+        // Teléfono duplicado (solo si viene)
+        if (telefono != null && !telefono.isBlank() && empresaRepo.existsByTelefono(telefono))
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "El teléfono ya está registrado."));
 
         Usuario u = new Usuario();
         u.setCorreo(correo);
@@ -60,7 +72,8 @@ public class RegistroController {
         e.setDescripcion(descripcion);
         empresaRepo.save(e);
 
-        return ResponseEntity.ok(Map.of("mensaje","Empresa registrada. Espere la aprobación del administrador."));
+        return ResponseEntity.ok(
+                Map.of("mensaje", "Empresa registrada. Espere la aprobación del administrador."));
     }
     @PostMapping("/oferente")
     public ResponseEntity<?> registrarOferente(@RequestBody Map<String, String> body) {
@@ -73,13 +86,24 @@ public class RegistroController {
         String telefono       = body.get("telefono");
         String residencia     = body.get("residencia");
 
-        if (correo==null||correo.isBlank() || clave==null||clave.isBlank()
-                || identificacion==null||identificacion.isBlank()
-                || nombre==null||nombre.isBlank() || primerApellido==null||primerApellido.isBlank())
-            return ResponseEntity.badRequest().body(Map.of("error","Correo, clave, identificación, nombre y apellido son obligatorios"));
+        if (correo == null || correo.isBlank() || clave == null || clave.isBlank()
+                || identificacion == null || identificacion.isBlank()
+                || nombre == null || nombre.isBlank()
+                || primerApellido == null || primerApellido.isBlank())
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Correo, clave, identificación, nombre y apellido son obligatorios."));
 
         if (usuarioRepo.findByCorreo(correo).isPresent())
-            return ResponseEntity.badRequest().body(Map.of("error","El correo ya está registrado"));
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "El correo ya está registrado."));
+
+        if (oferenteRepo.existsByIdentificacion(identificacion))
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "La identificación ya está registrada."));
+
+        if (telefono != null && !telefono.isBlank() && oferenteRepo.existsByTelefono(telefono))
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "El teléfono ya está registrado."));
 
         Usuario u = new Usuario();
         u.setCorreo(correo);
@@ -98,6 +122,7 @@ public class RegistroController {
         o.setResidencia(residencia);
         oferenteRepo.save(o);
 
-        return ResponseEntity.ok(Map.of("mensaje","Oferente registrado. Espere la aprobación del administrador."));
+        return ResponseEntity.ok(
+                Map.of("mensaje", "Oferente registrado. Espere la aprobación del administrador."));
     }
 }
