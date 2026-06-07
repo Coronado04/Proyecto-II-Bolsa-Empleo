@@ -16,6 +16,7 @@ import OferenteDashboard from './pages/oferente/OferenteDashboard.jsx';
 import MisHabilidades from './pages/oferente/MisHabilidades';
 import MiCV from './pages/oferente/MiCV';
 import Caracteristicas from './pages/admin/Caracteristicas';
+import BuscarOferentes from './pages/empresa/BuscarOferentes';
 
 export default function App() {
     const [pagina,     setPagina]     = useState('home');
@@ -49,6 +50,7 @@ export default function App() {
             case 'empresa-dashboard': return <EmpresaDashboard vistaInicial="dashboard" />;
             case 'mis-puestos':       return <EmpresaDashboard vistaInicial="mis-puestos" />;
             case 'publicar-puesto':   return <EmpresaDashboard vistaInicial="publicar-puesto" />;
+            case 'buscar-oferentes': return <BuscarOferentes />;
 
             case 'oferente-dashboard': return <OferenteDashboard onNavegar={setPagina} />;
             case 'mis-habilidades':    return <MisHabilidades onNavegar={setPagina} />;

@@ -28,6 +28,7 @@ export default function Navbar({ onNavegar, sesion, onLoginClick, onLogout }) {
             <button onClick={() => onNavegar('empresa-dashboard')}>Dashboard</button>
             <button onClick={() => onNavegar('mis-puestos')}>Mis puestos</button>
             <button onClick={() => onNavegar('publicar-puesto')}>Publicar puesto</button>
+            <button onClick={() => onNavegar('buscar-oferentes')}>Buscar oferente</button>
             <span style={{color:'white',fontSize:'14px'}}>{sesion.correo}</span>
             <button className="nav-login" onClick={onLogout}>Salir</button>
           </>}

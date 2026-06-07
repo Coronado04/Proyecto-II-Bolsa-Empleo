@@ -1,10 +1,12 @@
 package progra4.backend.presentation.Empresa;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import progra4.backend.data.*;
 import progra4.backend.logic.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +21,24 @@ public class EmpresaController {
     private final PuestoRepository puestoRepo;
     private final CaracteristicaRepository caracteristicaRepo;
 
+    private final OferenteRepository oferenteRepo;
+    private final OferenteHabilidadRepository habilidadRepo;
+
     public EmpresaController(UsuarioRepository usuarioRepo,
-       EmpresaRepository empresaRepo,
-       PuestoRepository puestoRepo,
-        CaracteristicaRepository caracteristicaRepo) {
-        this.usuarioRepo = usuarioRepo;
-        this.empresaRepo = empresaRepo;
-        this.puestoRepo  = puestoRepo;
+                             EmpresaRepository empresaRepo,
+                             PuestoRepository puestoRepo,
+                             CaracteristicaRepository caracteristicaRepo,
+                             OferenteRepository oferenteRepo,
+                             OferenteHabilidadRepository habilidadRepo) {
+        this.usuarioRepo        = usuarioRepo;
+        this.empresaRepo        = empresaRepo;
+        this.puestoRepo         = puestoRepo;
         this.caracteristicaRepo = caracteristicaRepo;
+        this.oferenteRepo       = oferenteRepo;
+        this.habilidadRepo      = habilidadRepo;
     }
+
+
 
     private Empresa getEmpresa(String correo) {
         Usuario u = usuarioRepo.findByCorreo(correo)
@@ -112,4 +123,64 @@ public class EmpresaController {
         List<Caracteristica> raices = caracteristicaRepo.findByPadreIsNull();
         return ResponseEntity.ok(raices);
     }
+
+
+    @GetMapping("/candidatos")
+    public ResponseEntity<?> buscarCandidatos(
+            @AuthenticationPrincipal String correo,
+            @RequestParam List<Integer> ids) {
+
+        // Todos los oferentes activos
+        List<Oferente> todos = oferenteRepo.findAll().stream()
+                .filter(o -> o.getUsuario().isActivo())
+                .collect(java.util.stream.Collectors.toList());
+
+        List<CandidatoBusquedaDTO> resultado = new ArrayList<>();
+
+        for (Oferente o : todos) {
+            List<OferenteHabilidad> habilidades = habilidadRepo.findByOferente(o);
+
+            // IDs de características que tiene el oferente
+            java.util.Set<Integer> idsOferente = habilidades.stream()
+                    .map(h -> h.getCaracteristica().getId())
+                    .collect(java.util.stream.Collectors.toSet());
+
+            // Solo incluir si tiene AL MENOS UNA de las buscadas
+            boolean coincide = ids.stream().anyMatch(idsOferente::contains);
+            if (!coincide) continue;
+
+            List<CandidatoBusquedaDTO.HabilidadDTO> habs = habilidades.stream()
+                    .map(h -> new CandidatoBusquedaDTO.HabilidadDTO(
+                            h.getCaracteristica().getNombre(), h.getNivel()))
+                    .collect(java.util.stream.Collectors.toList());
+
+            resultado.add(new CandidatoBusquedaDTO(o, habs));
+        }
+
+        return ResponseEntity.ok(resultado);
+    }
+
+    @GetMapping("/candidatos/{id}/cv")
+    public ResponseEntity<byte[]> verCVCandidato(
+            @AuthenticationPrincipal String correo,
+            @PathVariable Integer id) {
+
+        Oferente o = oferenteRepo.findById(id)
+                .orElse(null);
+        if (o == null || o.getCurriculum() == null)
+            return ResponseEntity.notFound().build();
+        try {
+            byte[] contenido = java.nio.file.Files.readAllBytes(
+                    java.nio.file.Path.of(o.getCurriculum()));
+            return ResponseEntity.ok()
+                    .header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION,
+                            "inline; filename=\"cv_" + id + ".pdf\"")
+                    .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                    .body(contenido);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }

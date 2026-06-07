@@ -51,3 +51,22 @@ export async function getCaracteristicas() {
     if (!res.ok) throw new Error('Error al obtener características');
     return res.json();
 }
+
+export async function buscarCandidatos(ids) {
+    const params = ids.map(id => `ids=${id}`).join('&');
+    const res = await fetch(`${BASE}/candidatos?${params}`, {
+        headers: authHeaders()
+    });
+    if (!res.ok) throw new Error('Error al buscar candidatos');
+    return res.json();
+}
+
+export async function verCVCandidato(id) {
+    const res = await fetch(`${BASE}/candidatos/${id}/cv`, {
+        headers: authHeaders()
+    });
+    if (!res.ok) throw new Error('No se pudo cargar el CV');
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+}
